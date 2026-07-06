@@ -1,0 +1,66 @@
+:root {
+  /* Colors */
+  --color-bg: #2b1b12;
+  --color-bg-elevated: #3a2419;
+  --color-bg-elevated-2: #46291b;
+  --color-accent-primary: #e8a33d;
+  --color-accent-secondary: #c2452d;
+  --color-accent-tertiary: #7c9a5f;
+  --color-text: #f5e6d3;
+  --color-text-dim: #c9ae8c;
+  --color-border: rgba(245, 230, 211, 0.12);
+  --color-border-strong: rgba(232, 163, 61, 0.35);
+
+  /* Fonts */
+  --font-display: "Fraunces", serif;
+  --font-body: "Work Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Spacing / radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(232, 163, 61, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(194, 69, 45, 0.08), transparent 45%);
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+input,
+select {
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-accent-primary);
+  color: var(--color-bg);
+}
