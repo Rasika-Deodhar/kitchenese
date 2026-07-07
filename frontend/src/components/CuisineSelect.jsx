@@ -2,18 +2,18 @@ import { CUISINES } from "../labels";
 
 export default function CuisineSelect({ value, onChange, disabled }) {
   return (
-    <select
-      className="cuisine-select"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      disabled={disabled}
-      aria-label="Cuisine"
-    >
+    <div className="cuisine-pills" role="group" aria-label="Cuisine">
       {CUISINES.map((c) => (
-        <option key={c} value={c}>
+        <button
+          key={c}
+          type="button"
+          className={c === value ? "cuisine-pill cuisine-pill--active" : "cuisine-pill"}
+          onClick={() => onChange(c)}
+          disabled={disabled}
+        >
           {c === "Surprise me" ? "🎲 Surprise me" : c}
-        </option>
+        </button>
       ))}
-    </select>
+    </div>
   );
 }

@@ -18,6 +18,12 @@ export default function LoadingState({ mode }) {
         🌶️
       </div>
       <p className="loading-state__message">{messages[index]}</p>
+      <div className="loading-state__bar" aria-hidden="true">
+        <div style={{ background: "#FFC93C" }} />
+        <div style={{ background: "#FF9F1C" }} />
+        <div style={{ background: "var(--border)" }} />
+        <div style={{ background: "var(--border)" }} />
+      </div>
     </div>
   );
 }

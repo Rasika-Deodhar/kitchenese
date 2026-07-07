@@ -1,26 +1,35 @@
 :root {
-  /* Colors */
-  --color-bg: #2b1b12;
-  --color-bg-elevated: #3a2419;
-  --color-bg-elevated-2: #46291b;
-  --color-accent-primary: #e8a33d;
-  --color-accent-secondary: #c2452d;
-  --color-accent-tertiary: #7c9a5f;
-  --color-text: #f5e6d3;
-  --color-text-dim: #c9ae8c;
-  --color-border: rgba(245, 230, 211, 0.12);
-  --color-border-strong: rgba(232, 163, 61, 0.35);
+  /* Cuisine palette — Indian defaults; overridden live via cuisineThemes.js */
+  --bg-page: #fff4e2;
+  --bg-surface: #fffdf7;
+  --border: #f0dfbe;
+  --text: #3b2410;
+  --text-dim: #8a6a3f;
+  --accent-a: #3e8e5a;
+  --accent-b: #e04b2a;
+  --accent-c: #f2a007;
+  --cuisine-pill-active-bg: #f2a007;
+  --mode-cook-bg: #3e8e5a;
+  --mode-eatout-bg: #f2a007;
+  --on-accent: #fff8ea;
+  --badge-bg: #ffe8be;
+  --badge-text: #8a5a00;
+  --note-bg: #eaf4e7;
+  --ingredient-bg: #fcf6e8;
+  --heat-box-bg: #fff1d6;
+  --heat-label: #a87f3f;
+  --greeting: #e04b2a;
 
   /* Fonts */
-  --font-display: "Fraunces", serif;
-  --font-body: "Work Sans", sans-serif;
+  --font-display: "Fredoka", sans-serif;
+  --font-body: "Outfit", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 
   /* Spacing / radii */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.4);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --shadow-card: 0 14px 36px rgba(59, 36, 16, 0.14);
 }
 
 * {
@@ -31,14 +40,11 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--color-bg);
-  background-image:
-    radial-gradient(circle at 15% 10%, rgba(232, 163, 61, 0.08), transparent 40%),
-    radial-gradient(circle at 85% 90%, rgba(194, 69, 45, 0.08), transparent 45%);
-  background-attachment: fixed;
-  color: var(--color-text);
+  background: var(--bg-page);
+  color: var(--text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1,
@@ -51,7 +57,7 @@ h4 {
 }
 
 button {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   cursor: pointer;
 }
 
@@ -60,7 +66,17 @@ select {
   font-family: var(--font-body);
 }
 
+@keyframes wiggle-chili {
+  0%,
+  100% {
+    transform: rotate(-14deg) scale(1);
+  }
+  50% {
+    transform: rotate(14deg) scale(1.12);
+  }
+}
+
 ::selection {
-  background: var(--color-accent-primary);
-  color: var(--color-bg);
+  background: var(--accent-c);
+  color: var(--on-accent);
 }

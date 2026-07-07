@@ -45,6 +45,7 @@ class Ingredient(BaseModel):
 
 class AnalogyResponse(BaseModel):
     concept: str
+    cuisine: str
     dish_name: str
     spice_level: int = Field(..., ge=1, le=4)
     one_liner: str

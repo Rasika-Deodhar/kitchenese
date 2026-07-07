@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import SearchBar from "./components/SearchBar";
 import CuisineSelect from "./components/CuisineSelect";
 import ModeToggle from "./components/ModeToggle";
@@ -9,6 +9,7 @@ import ErrorState from "./components/ErrorState";
 import { getLabels } from "./labels";
 import { fetchAnalogy, ApiError } from "./api";
 import { getCached, setCached } from "./cache";
+import { getCuisineTheme, resolveCuisineKey } from "./cuisineThemes";
 
 const HISTORY_KEY = "kitchenese_history";
 const MAX_HISTORY = 8;
@@ -34,6 +35,13 @@ export default function App() {
   const isFirstRun = useRef(true);
 
   const labels = getLabels(mode);
+  const effectiveCuisine = cuisine === "Surprise me" ? resolveCuisineKey(result?.cuisine) : cuisine;
+  const theme = getCuisineTheme(effectiveCuisine);
+
+  useLayoutEffect(() => {
+    const root = document.documentElement.style;
+    Object.entries(theme.vars).forEach(([key, value]) => root.setProperty(key, value));
+  }, [theme]);
 
   const addToHistory = useCallback((concept) => {
     setHistory((prev) => {
@@ -105,13 +113,14 @@ export default function App() {
         <h1 className="app__title">
           Kitchen<span className="app__title-accent">ese</span>
         </h1>
-        <p className="app__subtitle">Tech concepts, served kitchen-side.</p>
+        <p className="app__subtitle">
+          Tech concepts, served kitchen-side. <span className="app__greeting">{theme.greeting}</span>
+        </p>
       </header>
 
-      <div className="app__controls">
-        <ModeToggle mode={mode} onChange={setMode} disabled={loading} />
-        <CuisineSelect value={cuisine} onChange={setCuisine} disabled={loading} />
-      </div>
+      <CuisineSelect value={cuisine} onChange={setCuisine} disabled={loading} />
+
+      <ModeToggle mode={mode} onChange={setMode} disabled={loading} />
 
       <SearchBar
         value={activeConcept}
@@ -126,11 +135,15 @@ export default function App() {
         {loading && <LoadingState mode={mode} />}
         {!loading && error && <ErrorState message={error} onRetry={() => activeConcept && runLookup(activeConcept, cuisine, mode)} />}
         {!loading && !error && result && (
-          <ResultCard result={result} mode={mode} onPairsClick={handlePairsClick} />
+          <ResultCard result={result} mode={mode} cuisine={effectiveCuisine} onPairsClick={handlePairsClick} />
         )}
         {!loading && !error && !result && (
           <div className="app__empty">
-            <p>Type any tech, programming, or CS concept above and see it served up.</p>
+            <div className="app__empty-doodle" aria-hidden="true">
+              🍽️
+            </div>
+            <p className="app__empty-title">The kitchen is open!</p>
+            <p className="app__empty-text">Type any tech, programming, or CS concept above and see it served up.</p>
           </div>
         )}
       </main>
